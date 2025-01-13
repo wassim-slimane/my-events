@@ -1,16 +1,16 @@
-const express = require('express')
+const express = require('express');
 
-const eventsRouter = (db) => {
+const postsRouter = (db) => {
     const router = express.Router({ mergeParams: true });
-    const eventsCollection = db.collection('events');
+    const postsCollection = db.collection('posts');
 
     router.route('/')
         .get(async (req, res) => {
             try {
-                const events = await eventsCollection.find().toArray();
-                res.status(200).send(events);
+                const posts = await postsCollection.find().toArray();
+                res.status(200).send(posts);
             } catch (error) {
-                res.status(500).send({ error: 'Failed to fetch events' });
+                res.status(500).send({ error: 'Failed to fetch posts' });
             }
         })
         .post(async (req, res) => {
@@ -26,5 +26,4 @@ const eventsRouter = (db) => {
     return router;
 }
 
-
-module.exports = eventsRouter;
+module.exports = postsRouter;
