@@ -1,29 +1,30 @@
 const express = require('express');
+const usersRouter = express.Router({ mergeParams: true });
 
-const usersRouter = (db) => {
-    const router = express.Router({ mergeParams: true });
-    const usersCollection = db.collection('users');
+const User = require('../src/models/User');
 
-    router.route('/')
-        .get(async (req, res) => {
-            try {
-                const users = await usersCollection.find().toArray();
-                res.status(200).send(users);
-            } catch (error) {
-                res.status(500).send({ error: 'Failed to fetch users' });
-            }
-        })
-        .post(async (req, res) => {
-            // To-DO
-        })
-        .put(async (req, res) => {
-            // To-DO
-        })
-        .delete(async (req, res) => {
-            // To-DO
-        });
+usersRouter.route('/')
+    .get(async (req, res) => {
+        try {
+            const users = await User.find({}, null, null);
 
-    return router;
-}
+            res.status(200).send(users);
+        } catch (error) {
+            res.status(500).send({ error: 'Failed to fetch users' });
+        }
+    })
+    .post(async (req, res) => {
+        // To-DO
+        const user = new User(req.body);
+        await user.save();
+
+        res.status(200).send(user);
+    })
+    .put(async (req, res) => {
+        // To-DO
+    })
+    .delete(async (req, res) => {
+        // To-DO
+    });
 
 module.exports = usersRouter;

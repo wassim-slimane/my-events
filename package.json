@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "dev": "node --watch app.js"
+    "dev": "node --watch app.js",
+    "populate_users": "node ./src/seeds/userSeed.js",
+    "populate_events": "node ./src/seeds/eventSeed.js"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

@@ -1,29 +1,26 @@
 const express = require('express');
+const postsRouter = express.Router({ mergeParams: true });
 
-const postsRouter = (db) => {
-    const router = express.Router({ mergeParams: true });
-    const postsCollection = db.collection('posts');
+const Event = require('../src/models/Event');
 
-    router.route('/')
-        .get(async (req, res) => {
-            try {
-                const posts = await postsCollection.find().toArray();
-                res.status(200).send(posts);
-            } catch (error) {
-                res.status(500).send({ error: 'Failed to fetch posts' });
-            }
-        })
-        .post(async (req, res) => {
-            // To-DO
-        })
-        .put(async (req, res) => {
-            // To-DO
-        })
-        .delete(async (req, res) => {
-            // To-DO
-        });
-
-    return router;
-}
+postsRouter.route('/')
+    .get(async (req, res) => {
+        try {
+            const events = await Event.find({}, 'posts', null);
+            console.log(events);
+            res.status(200).send(events);
+        } catch (error) {
+            res.status(500).send({ error: 'Failed to fetch posts' });
+        }
+    })
+    .post(async (req, res) => {
+        // To-DO
+    })
+    .put(async (req, res) => {
+        // To-DO
+    })
+    .delete(async (req, res) => {
+        // To-DO
+    });
 
 module.exports = postsRouter;

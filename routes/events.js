@@ -1,30 +1,26 @@
 const express = require('express')
+const eventsRouter = express.Router({ mergeParams: true });
 
-const eventsRouter = (db) => {
-    const router = express.Router({ mergeParams: true });
-    const eventsCollection = db.collection('events');
+const Event = require('../src/models/Event');
 
-    router.route('/')
-        .get(async (req, res) => {
-            try {
-                const events = await eventsCollection.find().toArray();
-                res.status(200).send(events);
-            } catch (error) {
-                res.status(500).send({ error: 'Failed to fetch events' });
-            }
-        })
-        .post(async (req, res) => {
-            // To-DO
-        })
-        .put(async (req, res) => {
-            // To-DO
-        })
-        .delete(async (req, res) => {
-            // To-DO
-        });
+eventsRouter.route('/')
+    .get(async (req, res) => {
+        try {
+            const events = await Event.find({}, null, null);
 
-    return router;
-}
-
+            res.status(200).send(events);
+        } catch (error) {
+            res.status(500).send({ error: 'Failed to fetch events' });
+        }
+    })
+    .post(async (req, res) => {
+        // To-DO
+    })
+    .put(async (req, res) => {
+        // To-DO
+    })
+    .delete(async (req, res) => {
+        // To-DO
+    });
 
 module.exports = eventsRouter;
