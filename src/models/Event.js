@@ -97,6 +97,6 @@ const EventSchema = new mongoose.Schema({
     timestamps: true, // Automatically add createdAt and updatedAt fields
 });
 
-const EventModel = mongoose.model('Event', EventSchema);
+const Event = mongoose.model('Event', EventSchema);
 
-module.exports = EventModel;
+module.exports = Event;
