@@ -8,7 +8,7 @@ usersRouter.route('/')
         try {
             const users = await User.find({}, null, null);
 
-            res.status(200).send(users);
+            res.status(200).json(users);
         } catch (error) {
             res.status(500).send({ error: 'Failed to fetch users' });
         }

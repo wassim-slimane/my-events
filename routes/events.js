@@ -8,7 +8,7 @@ eventsRouter.route('/')
         try {
             const events = await Event.find({}, null, null);
 
-            res.status(200).send(events);
+            res.status(200).json(events);
         } catch (error) {
             res.status(500).send({ error: 'Failed to fetch events' });
         }
