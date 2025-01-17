@@ -7,8 +7,9 @@ postsRouter.route('/')
     .get(async (req, res) => {
         try {
             const events = await Event.find({}, 'posts', null);
+            const posts = events.flatMap((event) => event.posts);
 
-            res.status(200).send(events);
+            res.status(200).json(posts);
         } catch (error) {
             res.status(500).send({ error: 'Failed to fetch posts' });
         }
