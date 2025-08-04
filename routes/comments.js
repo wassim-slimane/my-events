@@ -6,9 +6,10 @@ const Event = require('../src/models/Event');
 commentsRouter.route('/')
     .get(async (req, res) => {
         try {
-            const comments = await Event.find({}, 'comments', null);
+            const events = await Event.find({}, 'posts.comments', null);
+            const comments = events.flatMap((event) => event.posts.flatMap((post) => post.comments));
 
-            res.status(200).send(comments);
+            res.status(200).json(comments);
         } catch (error) {
             res.status(500).send({ error: 'Failed to fetch comments' });
         }
