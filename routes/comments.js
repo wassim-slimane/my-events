@@ -1,29 +1,26 @@
 const express = require('express');
+const commentsRouter = express.Router({ mergeParams: true });
 
-const commentsRouter = (db) => {
-    const router = express.Router({ mergeParams: true });
-    const commentsCollection = db.collection('comments');
+const Event = require('../src/models/Event');
 
-    router.route('/')
-        .get(async (req, res) => {
-            try {
-                const comments = await commentsCollection.find().toArray();
-                res.status(200).send(comments);
-            } catch (error) {
-                res.status(500).send({ error: 'Failed to fetch comments' });
-            }
-        })
-        .post(async (req, res) => {
-            // To-DO
-        })
-        .put(async (req, res) => {
-            // To-DO
-        })
-        .delete(async (req, res) => {
-            // To-DO
-        });
+commentsRouter.route('/')
+    .get(async (req, res) => {
+        try {
+            const comments = await Event.find({}, 'comments', null);
 
-    return router;
-}
+            res.status(200).send(comments);
+        } catch (error) {
+            res.status(500).send({ error: 'Failed to fetch comments' });
+        }
+    })
+    .post(async (req, res) => {
+        // To-DO
+    })
+    .put(async (req, res) => {
+        // To-DO
+    })
+    .delete(async (req, res) => {
+        // To-DO
+    });
 
 module.exports = commentsRouter;
